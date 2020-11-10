@@ -10,6 +10,11 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
+    /**
+     * add a message
+     * @param messageParam
+     * @return
+     */
     public Message addMessage(Message messageParam){
         Message message = messageRepository.save(messageParam);
         //mesage validator sevice pt a verifica daca exista userii

@@ -16,7 +16,11 @@ public class FriendshipRequestFile extends AbstractFileRepository<Long, Friendsh
     public FriendshipRequestFile(String fileName, Validator<FriendshipRequest> validator, Repository<Long, Utilizator> utilizatorRepository) {
         super(fileName, validator,utilizatorRepository);
     }
-
+    /**
+     * extract the attributes of a FriendshipRequest from a file line
+     * @param attributes
+     * @return FriendshipRequest
+     */
     @Override
     public FriendshipRequest extractEntity(List<String> attributes) {
         Long idUserEmitator = Long.parseLong(attributes.get(1));
@@ -28,6 +32,11 @@ public class FriendshipRequestFile extends AbstractFileRepository<Long, Friendsh
                 Arrays.asList(userRepository.findOne(idUserReceptor)),textMesaj,data,status);
     }
 
+    /**
+     * create a line for file from the attributes of a FriendshipRequest
+     * @param entity
+     * @return string
+     */
     @Override
     protected String createEntityAsString(FriendshipRequest entity) {
         String listTo = "";

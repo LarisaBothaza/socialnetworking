@@ -16,18 +16,33 @@ public class FriendshipRequestService {
         this.requestRepository = requestRepository;
     }
 
+    /**
+     * add a friendship request
+     * @param friendshipRequest
+     * @return
+     */
     public FriendshipRequest addRequest(FriendshipRequest friendshipRequest){
         FriendshipRequest friendshipRequest1 = requestRepository.save(friendshipRequest);
         friendshipRequestValidator.validateAdd(friendshipRequest1);
         return friendshipRequest1;
     }
 
+    /**
+     * deleteed a friendship request
+     * @param id
+     * @return
+     */
     public FriendshipRequest deleteRequest(Long id){
         FriendshipRequest friendshipRequest1 = requestRepository.delete(id);
         friendshipRequestValidator.validateDelete(friendshipRequest1);
         return friendshipRequest1;
     }
 
+    /**
+     *
+     * @param id
+     * @return an iterable with all pending requests
+     */
     public Iterable<FriendshipRequest> getAllPendingRequest (Long id){
         Iterable<FriendshipRequest> listRequest = requestRepository.findAll();
         List<FriendshipRequest> listPendingRequest = new ArrayList<>();
@@ -39,6 +54,11 @@ public class FriendshipRequestService {
         return listPendingRequest;
     }
 
+    /**
+     * searhc for one friendship request by id
+     * @param id
+     * @return
+     */
     public FriendshipRequest getOne(Long id){
         return requestRepository.findOne(id);
     }

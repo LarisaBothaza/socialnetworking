@@ -19,6 +19,11 @@ public class ReplyMessageFile extends AbstractFileRepository<Long, ReplyMessage>
 
     }
 
+    /**
+     * extract the attributes of a reply message from a file line
+     * @param attributes
+     * @return replymessage
+     */
     @Override
     public ReplyMessage extractEntity(List<String> attributes) {
         Long idUserEmitator = Long.parseLong(attributes.get(1));
@@ -30,6 +35,11 @@ public class ReplyMessageFile extends AbstractFileRepository<Long, ReplyMessage>
                 Arrays.asList(userRepository.findOne(idUserReceptor)),textMesaj,data,findOne(idReplyMessage));
     }
 
+    /**
+     * create a line for file from the attributes of a reply message
+     * @param entity
+     * @return string
+     */
     @Override
     protected String createEntityAsString(ReplyMessage entity) {
         String listTo = "";

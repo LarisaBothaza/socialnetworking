@@ -4,6 +4,11 @@ import socialnetwork.domain.validators.ValidationException;
 
 public class ValidatorFriendshipRequestService<T> implements Validator<T> {
 
+    /**
+     * validate the addition
+     * @param entity
+     * @throws ValidationException
+     */
     @Override
     public void validateAdd(T entity) throws ValidationException {
         if(entity != null){
@@ -11,6 +16,11 @@ public class ValidatorFriendshipRequestService<T> implements Validator<T> {
         }
     }
 
+    /**
+     * validate the deletion
+     * @param entity
+     * @throws ValidationException
+     */
     @Override
     public void validateDelete(T entity) throws ValidationException {
         if(entity == null){

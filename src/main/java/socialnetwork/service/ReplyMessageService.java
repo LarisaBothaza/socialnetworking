@@ -14,18 +14,28 @@ public class ReplyMessageService {
         this.replyMessageRepository = replyMessageRepository;
     }
 
+    /**
+     * add a reply message
+     * @param replyMessageParam
+     * @return
+     */
     public ReplyMessage addMessage(ReplyMessage replyMessageParam){
         ReplyMessage replyMessage = replyMessageRepository.save(replyMessageParam);
         //mesage validator sevice pt a verifica daca exista userii
         return replyMessage;
     }
 
+    /**
+     * search for a reply message by id
+     * @param idReplyMessage Long
+     * @return
+     */
     public ReplyMessage getReplyMessage(Long idReplyMessage){
         return replyMessageRepository.findOne(idReplyMessage);
     }
 
     /**
-     *
+     *returns the conversation between 2 users
      * @param idSender Long
      * @param idReceiver Long
      * @return
