@@ -24,6 +24,12 @@ public class ReplyMessageService {
         return replyMessageRepository.findOne(idReplyMessage);
     }
 
+    /**
+     *
+     * @param idSender Long
+     * @param idReceiver Long
+     * @return
+     */
     public Iterable<ReplyMessage> getConversation(Long idSender, Long idReceiver){
         Iterable<ReplyMessage> listReplyMessages = replyMessageRepository.findAll();
         List<ReplyMessage> conversation = new ArrayList<>();
