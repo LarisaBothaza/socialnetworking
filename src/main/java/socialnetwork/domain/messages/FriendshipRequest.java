@@ -26,11 +26,12 @@ public class FriendshipRequest extends Message{
     public String toString() {
 
         String messageString = "FriendshipRequest{"
-                + "Id Friendship Request: " + super.getId() + " "
-                + "From: " + super.getFrom().getFirstName()+" "+ super.getFrom().getLastName() + " "
-                + "To: " + super.getTo().get(0).getFirstName() + " " + super.getTo().get(0).getLastName() + " "
-                + "Text message: " + super.getMessage() + " "
-                + "Data: " + super.getData().format(Constants.DATE_TIME_FORMATTER) + " "
+                + "Id Friendship Request: " + super.getId() + " | "
+                + "From: " + "id user " + super.getFrom().getId() + " "
+                + super.getFrom().getFirstName()+" "+ super.getFrom().getLastName() + " | "
+                + "To: " + super.getTo().get(0).getFirstName() + " " + super.getTo().get(0).getLastName() + " | "
+                + "Text message: " + super.getMessage() + " | "
+                + "Data: " + super.getData().format(Constants.DATE_TIME_FORMATTER) + " | "
                 + "Status: " + status + '}';
 
         return messageString;

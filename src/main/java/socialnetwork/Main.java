@@ -27,7 +27,7 @@ public class Main {
         Repository<Long,Utilizator> userFileRepository = new UtilizatorFile(fileNameUsers, new UtilizatorValidator());
         Repository<Tuple<Long,Long>, Prietenie> prietenieFileRepository = new PrietenieFile(fileNamePrietenii,
                 new PrietenieValidator(userFileRepository),userFileRepository);
-        Repository<Long, Message> messageRepository = new MessageFile(fileNameMessage,new MessageValidator());
+        Repository<Long, Message> messageRepository = new MessageFile(fileNameMessage,new MessageValidator(),userFileRepository);
         Repository<Long, ReplyMessage> replyMessageRepository = new ReplyMessageFile(fileNameConversation,
                 new ReplyMessageValidator(),userFileRepository);
         Repository<Long, FriendshipRequest> friendshipRequestRepository = new FriendshipRequestFile(fileNameRequests,

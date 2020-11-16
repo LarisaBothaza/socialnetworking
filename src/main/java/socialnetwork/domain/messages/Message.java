@@ -85,7 +85,7 @@ public class Message extends Entity<Long> {
                 ", data=" + data +
                 '}';
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

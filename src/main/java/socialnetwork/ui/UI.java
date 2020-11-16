@@ -9,6 +9,7 @@ import socialnetwork.domain.messages.Message;
 import socialnetwork.domain.messages.ReplyMessage;
 import socialnetwork.domain.validators.ValidationException;
 import socialnetwork.service.*;
+import socialnetwork.utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class UI {
@@ -49,14 +51,15 @@ public class UI {
                     System.out.println("6. The most soaciable community");
                     System.out.println("7. Print users:");
                     System.out.println("8. Print friendships:");
-                    System.out.println("9. The friendships of a user reading from the keyboard:");
+                    System.out.println("9. The friendships of a user read from the keyboard:");
                     System.out.println("10. The friendships of a user read from the keyboard, from the month read from the keyboard:");
                     System.out.println("11. Send message to many:");
                     System.out.println("12. Add CONVERASTION:");
                     System.out.println("13. Show conversation between 2 users:");
                     System.out.println("14. Send request friendship: ");
                     System.out.println("15. Respond to a request friendship: ");
-                    System.out.print("Introduce comanda: ");
+                    System.out.println("16. Respond to a message: ");
+                    System.out.print(">>: ");
                     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                     command = Integer.parseInt(reader.readLine());
                     switch (command) {
@@ -101,18 +104,25 @@ public class UI {
                             break;
                         case 11:
                             sendMessageToMany();
+                            System.out.println("Successful send!\n");
                             break;
                         case 12:
                             addConversation();
+                            System.out.println("Successful add!\n");
                             break;
                         case 13:
                             showConversation();
                             break;
                         case 14:
                             sendFrienshipRequest();
+                            System.out.println("Successful send!\n");
                             break;
                         case 15:
                             respondFriendshipRequest();
+                            break;
+                        case 16:
+                            respondMessage();
+                            System.out.println("Successful send!\n");
                             break;
 
                     }
@@ -289,7 +299,7 @@ public class UI {
     /**
      * read a user's id, a month and display the list of friends
      */
-    private void afisarePrieteniiUserDinLunaData(){
+    private void afisarePrieteniiUserDinLunaData() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String idString;
 
@@ -315,6 +325,9 @@ public class UI {
                 System.err.println("ID month! Introduce a number between 01 and 12 ");
             }
         }
+        System.out.println("Read year: ");
+       String year = bufferedReader.readLine();
+       Long yearLong = Long.parseLong(year);
 
         List<Prietenie> listPrieteni = new ArrayList<Prietenie>();
         Iterable<Prietenie> prieteniiIterabile = prietenieService.getAll();
@@ -325,8 +338,10 @@ public class UI {
                     return prietenie.getId().getLeft().equals(idUser) || prietenie.getId().getRight().equals(idUser);
                 })
                 .filter(x->{
+//                    int y = x.getDate().getYear();
                   String date = x.getDate().toString();
-                  return date.substring(5,7).equals(finalMonth);
+                  String dateCompare = year+"-"+finalMonth;
+                  return date.substring(0,7).equals(dateCompare);
                 })
                 .forEach(x->{
                     Utilizator utilizator = null;
@@ -419,6 +434,19 @@ public class UI {
     }
 
     /**
+     * reads a string before displaying a specific message
+     * @param mesaj to know what id you enter
+     * @return a String
+     * @throws IOException
+     */
+    private String readString(String mesaj) throws IOException {
+        System.out.println(mesaj);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String string = bufferedReader.readLine();
+        return string;
+    }
+
+    /**
      * read 2 ids, a message and simulate a conversation
      * @throws IOException
      */
@@ -428,15 +456,13 @@ public class UI {
         Utilizator sender = utilizatorService.findOne(idUserEmitator);
         Utilizator receiver = utilizatorService.findOne(idUserReceptor);
 
-        System.out.println("The message: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String mesaj = bufferedReader.readLine();
+        String mesaj = readString("The message: ");
 
         ReplyMessage replyMessage = new ReplyMessage(sender, Arrays.asList(receiver),mesaj,LocalDateTime.now(),
                 replyMessageService.getReplyMessage(0L));
 
         replyMessageService.addMessage(replyMessage);
-
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while(true){
             System.out.print("Do you want to continue the conversation? [y/n]");
             System.out.print("Response: ");
@@ -480,9 +506,7 @@ public class UI {
         Utilizator sender = utilizatorService.findOne(idUserEmitator);
         Utilizator receiver = utilizatorService.findOne(idUserReceptor);
 
-        System.out.println("The message: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String mesaj = bufferedReader.readLine();
+        String mesaj = readString("The message: ");
         FriendshipRequest request = new FriendshipRequest(sender,Arrays.asList(receiver),mesaj,LocalDateTime.now(),"pending");
         friendshipRequestService.addRequest(request);
     }
@@ -531,5 +555,31 @@ public class UI {
             System.out.println("No action");
         }
 
+    }
+
+    private void respondMessage() throws IOException {
+        //citesc id
+        Long id = readNumberLong("Introduce the id of the user who wants to check the messages: ");
+
+        Iterable<Message> filter = messageService.getMessageToUser(id);
+
+        filter.forEach(x->{
+                     System.out.println("ID: "+ x.getId()+" |  From: id user "+x.getFrom().getId()+" "+x.getFrom().getFirstName()+" "+x.getFrom().getLastName()+" | Message: "
+                     +x.getMessage()+" | Date: "+x.getData().format(Constants.DATE_TIME_FORMATTER));
+                }
+        );
+
+        Long idMessage = readNumberLong("Which do you want to answer? Please enter id: ");
+        String text = readString("Message reply: ");
+
+        Message msgFrom = messageService.getMessage(idMessage);
+        Utilizator user = utilizatorService.findOne(id);
+        Utilizator userFrom = msgFrom.getFrom();
+        Message response = new Message(user,Arrays.asList(userFrom),text,LocalDateTime.now());
+        messageService.addMessage(response);
+
+        //afisez lista de mesaje care au in lista destinatari idul citit
+        //intreb la cine vrea sa raspunda
+        //creez + add  un mesaj
     }
 }
