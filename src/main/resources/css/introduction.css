@@ -1,0 +1,173 @@
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #C04F27;
+}
+
+#tableColumnLastName {
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+#tableColumnFirstName {
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:hover{
+    -fx-background-color: #E6AB4E;
+}
+
+.table-view .table-cell{
+    -fx-border-color: #E7C99A;
+    -fx-padding: 2 0 2 10px;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to bottom, #E7C99A, #E2A364);
+
+}
+
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  linear-gradient(to right,  #E7C99A, #E2A364);
+}
+
+/*#tableColumnLastName:hover {*/
+/*    -fx-text-fill: #5CA273;*/
+/*}*/
+
+/*#tableColumnFirstName:hover {*/
+/*    -fx-text-fill:#5CA273;*/
+/*}*/
+
+
+/*.table-view:focused .table-row-cell:focused {*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*}*/
+
+
+
+
+/*.table-view {*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+/*.table-view .column-header-background .filler {*/
+/*    -fx-background-color: #5CA273;*/
+/*}*/
+
+/*.table-view .corner {*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+/*.table-view .column-header-background{*/
+/*    -fx-background-color: linear-gradient(#ff9068,#fd746c);*/
+/*    -fx-background-radius: 7px 7px 0px 0px;*/
+/*    -fx-background-insets: 0 11px 0 0;*/
+/*    -fx-padding: 0 0 5px 0;*/
+/*}*/
+
+/*.table-view .column-header {*/
+/*    -fx-background-color: transparent;*/
+/*}*/
+
+
+/*.table-row-cell:odd{*/
+/*    -fx-background-color: #93f9b911;*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*    -fx-padding: 0.0em;*/
+/*}*/
+/*.table-row-cell:even{*/
+/*    -fx-background-color: #1dbbdd11;*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*    -fx-padding: 0.0em;*/
+/*}*/
+
+
+
+/*.table-row-cell:selected {*/
+/*    -fx-background-color: #E6AB4E;*/
+/*}*/
+
+/*.table-row-cell:selected .text {*/
+/*    -fx-fill: #5CA273;*/
+/*}*/
+
+
+/*.button {*/
+/*    -fx-text-fill:  linear-gradient(#ffe259, #ffa751);*/
+/*    -fx-font-family: "Arial Narrow";*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-background-color: linear-gradient(#DAE2F8, #916698);*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);*/
+/*}*/
+
+/*.button:hover {*/
+/*    -fx-background-color: linear-gradient(#916698, #DAE2F8);*/
+/*}*/
+
+
+
+/*#tableColumnLastName {*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-text-fill: linear-gradient(#572aba, #9f73ac);*/
+/*    -fx-alignment: center;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+/*#tableColumnFirstName {*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-text-fill: linear-gradient(#572aba, #9f73ac);*/
+/*    -fx-alignment: center;*/
+/*    -fx-font-weight: bold;*/
+/*}*/
+
+/*#tableColumnLastName:hover {*/
+/*    -fx-text-fill: linear-gradient(#3608a2, #5f4866);*/
+/*}*/
+
+/*#tableColumnFirstName:hover {*/
+/*    -fx-text-fill: linear-gradient(#3608a2, #5f4866);*/
+/*}*/
+
+/*.table-view:focused .table-row-cell:focused {*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*}*/
+
+/*#tableViewStrangers {*/
+/*    -fx-background-color: linear-gradient(#aba2a2, #7b28ac);*/
+/*}*/
+
+/*#textFieldSearch {*/
+/*    -fx-text-fill: linear-gradient(#3608a2, #5f4866);*/
+/*}*/
+
+/*#textFieldMessage {*/
+/*    -fx-text-fill: linear-gradient(#3608a2, #5f4866);*/
+/*}*/
+
+/*#textFieldSearch:focused {*/
+/*    -fx-background-color: linear-gradient(#b5a3d2, #ab9bb3);*/
+/*}*/
+
+/*#textFieldMessage:focused {*/
+/*    -fx-background-color: linear-gradient(#b5a3d2, #ab9bb3);*/
+/*}*/

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="423.0" prefWidth="269.0" style="-fx-background-color:  linear-gradient(#E7C99A,#E2A364)" stylesheets="@../css/introduction.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controller.IntroductionController">
+   <children>
+       <ImageView fitHeight="47.0" fitWidth="122.0" layoutX="69.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="355.0" AnchorPane.leftAnchor="69.0" AnchorPane.topAnchor="21.0">
+           <image>
+               <Image url="@../images/welcome.png" />
+           </image>
+       </ImageView>
+      <TableView fx:id="tableViewUserDTO" layoutX="26.0" layoutY="82.0" onMouseClicked="#selectFriendsUser" prefHeight="298.0" prefWidth="220.0">
+        <columns>
+          <TableColumn fx:id="tableColumnFirstName" minWidth="7.0" prefWidth="103.0" text="First Name" />
+          <TableColumn fx:id="tableColumnLastName" prefWidth="103.0" text="Last Name" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

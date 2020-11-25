@@ -22,6 +22,18 @@ public class FriendshipRequest extends Message{
         this.status = status;
     }
 
+    public String getFirstName(){
+        return getFrom().getFirstName();
+    }
+
+    public String getLastName(){
+        return getFrom().getLastName();
+    }
+
+    public String getDate(){
+        return getData().format(Constants.DATE_TIME_FORMATTER);
+    }
+
     @Override
     public String toString() {
 

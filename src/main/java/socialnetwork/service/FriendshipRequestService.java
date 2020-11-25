@@ -1,19 +1,30 @@
 package socialnetwork.service;
 
+import socialnetwork.domain.Prietenie;
+import socialnetwork.domain.Tuple;
 import socialnetwork.domain.messages.FriendshipRequest;
 import socialnetwork.repository.Repository;
 import socialnetwork.service.validators.Validator;
 import socialnetwork.service.validators.ValidatorFriendshipRequestService;
+import socialnetwork.utils.events.ChangeEventType;
+import socialnetwork.utils.events.FriendshipRequestChangeEvent;
+import socialnetwork.utils.observer.Observable;
+import socialnetwork.utils.observer.Observer;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendshipRequestService {
+public class FriendshipRequestService implements Observable<FriendshipRequestChangeEvent> {
     private Repository<Long, FriendshipRequest> requestRepository;
-    private Validator<FriendshipRequest> friendshipRequestValidator = new ValidatorFriendshipRequestService<>();
+    private ValidatorFriendshipRequestService validatorFriendshipRequestService = new ValidatorFriendshipRequestService();
+    private Repository<Tuple<Long,Long>, Prietenie> friendshipRepository;
+    private List<Observer<FriendshipRequestChangeEvent>> observers = new ArrayList<>();
 
-    public FriendshipRequestService(Repository<Long, FriendshipRequest> requestRepository) {
+    public FriendshipRequestService(Repository<Long,
+            FriendshipRequest> requestRepository,Repository<Tuple<Long,Long>, Prietenie> friendshipRepository) {
         this.requestRepository = requestRepository;
+        this.friendshipRepository = friendshipRepository;
     }
 
     /**
@@ -22,8 +33,10 @@ public class FriendshipRequestService {
      * @return
      */
     public FriendshipRequest addRequest(FriendshipRequest friendshipRequest){
+        validatorFriendshipRequestService.validateBeforeAdding(friendshipRequest,getAll(),friendshipRepository.findAll());
         FriendshipRequest friendshipRequest1 = requestRepository.save(friendshipRequest);
-        friendshipRequestValidator.validateAdd(friendshipRequest1);
+
+        //friendshipRequestValidator.validateAdd(friendshipRequest1);
         return friendshipRequest1;
     }
 
@@ -34,7 +47,7 @@ public class FriendshipRequestService {
      */
     public FriendshipRequest deleteRequest(Long id){
         FriendshipRequest friendshipRequest1 = requestRepository.delete(id);
-        friendshipRequestValidator.validateDelete(friendshipRequest1);
+        validatorFriendshipRequestService.validateDelete(friendshipRequest1);
         return friendshipRequest1;
     }
 
@@ -54,6 +67,17 @@ public class FriendshipRequestService {
         return listPendingRequest;
     }
 
+    public List<FriendshipRequest> getAllRequest (Long id){
+        Iterable<FriendshipRequest> listRequest = requestRepository.findAll();
+        List<FriendshipRequest> listAllRequest = new ArrayList<>();
+        listRequest.forEach(request->{
+            if(request.getTo().get(0).getId().equals(id)){
+                listAllRequest.add(request);
+            }
+        });
+        return listAllRequest;
+    }
+
     /**
      * searhc for one friendship request by id
      * @param id
@@ -63,4 +87,33 @@ public class FriendshipRequestService {
         return requestRepository.findOne(id);
     }
 
+    public Iterable<FriendshipRequest> getAll(){
+        return requestRepository.findAll();
+    }
+
+    public void updateFriendshipRequest(FriendshipRequest friendshipRequest, String status){
+        FriendshipRequest fr = deleteRequest(friendshipRequest.getId());
+        fr.setStatus(status);
+        fr.setData(LocalDateTime.now());
+        fr = addRequest(fr);
+
+        notifyObservers(new FriendshipRequestChangeEvent(ChangeEventType.UPDATE,fr));
+
+
+    }
+
+    @Override
+    public void addObserver(Observer<FriendshipRequestChangeEvent> e) {
+        observers.add(e);
+    }
+
+    @Override
+    public void removeObserver(Observer<FriendshipRequestChangeEvent> e) {
+        //observers.remove(e);
+    }
+
+    @Override
+    public void notifyObservers(FriendshipRequestChangeEvent friendshipRequestChangeEvent) {
+        observers.stream().forEach(obs -> obs.update(friendshipRequestChangeEvent));
+    }
 }

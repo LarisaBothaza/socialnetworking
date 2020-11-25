@@ -2,12 +2,15 @@ package socialnetwork.service;
 
 import socialnetwork.domain.Prietenie;
 import socialnetwork.domain.Tuple;
+import socialnetwork.domain.UserDTO;
 import socialnetwork.domain.Utilizator;
 import socialnetwork.repository.Repository;
 import socialnetwork.service.validators.Validator;
 import socialnetwork.service.validators.ValidatorUtilizatorService;
 
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.List;
 
 public class UtilizatorService  {
     private final Repository<Long, Utilizator> repoUtilizator;
@@ -64,5 +67,22 @@ public class UtilizatorService  {
     }
     public Utilizator findOne(Long id){
         return repoUtilizator.findOne(id);
+    }
+
+    public List<UserDTO> getAllUsersDTO(){
+        List<UserDTO> userDTOList = new ArrayList<>();
+        getAll().forEach(user->{
+            UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName());
+            userDTO.setId(user.getId());
+            userDTOList.add(userDTO);
+        });
+        return userDTOList;
+    }
+
+    public UserDTO getUserDTO(Long userId){
+        Utilizator user = findOne(userId);
+        UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName());
+        userDTO.setId(userId);
+        return userDTO;
     }
 }

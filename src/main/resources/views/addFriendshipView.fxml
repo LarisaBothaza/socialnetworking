@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color:  linear-gradient(#E7C99A,#E2A364)" stylesheets="@../css/addFriendshipView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controller.AddFriendshipViewController">
+   <children>
+      <TableView fx:id="tableViewNonFriends" layoutX="62.0" layoutY="42.0" prefHeight="317.0" prefWidth="204.0">
+        <columns>
+            <TableColumn prefWidth="202.0" text="User">
+               <columns>
+                <TableColumn fx:id="tableColumnFirstName" prefWidth="100.0" text="First Name" />
+                <TableColumn fx:id="tableColumnLastName" prefWidth="100.0" text="Last Name" />
+               </columns>
+            </TableColumn>
+        </columns>
+      </TableView>
+      <TextField fx:id="textFieldSearch" layoutX="389.0" layoutY="42.0" onKeyTyped="#handleFilter" />
+      <Label fx:id="labelSearch" layoutX="300.0" layoutY="46.0" text="Search" />
+      <TextField fx:id="textFieldMessage" layoutX="389.0" layoutY="93.0" prefHeight="50.0" prefWidth="149.0" />
+      <Label fx:id="labelMessage" layoutX="300.0" layoutY="101.0" text="Messaage" />
+      <Button fx:id="buttonSend" layoutX="389.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#sendFriendshipRequest" prefHeight="50.0" prefWidth="149.0" text="Send friendship request" />
+      <Label fx:id="labelUser" layoutX="62.0" layoutY="359.0" prefHeight="36.0" prefWidth="204.0" text="Label" />
+   </children>
+</AnchorPane>
