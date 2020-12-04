@@ -87,6 +87,7 @@ public class MainFX extends Application {
         introductionController.setUtilizatorService(utilizatorService);
         introductionController.setPrietenieService(prietenieService);
         introductionController.setFriendshipRequestService(friendshipRequestService);
+        introductionController.setIntroductionstage(primaryStage);
 
     }
 }
