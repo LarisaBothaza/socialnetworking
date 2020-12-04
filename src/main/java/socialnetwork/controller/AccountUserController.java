@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +48,8 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
 
     @FXML Label labelUser;
 
+    Stage accountUserStage;
+
     @FXML
     public void initialize(){
         tabelColumnFirstName.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("firstName"));
@@ -55,12 +58,13 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
     }
 
     void setAttributes(PrietenieService prietenieService, UtilizatorService utilizatorService,
-                       FriendshipRequestService friendshipRequestService, UserDTO selectedUserDTO){
+                       FriendshipRequestService friendshipRequestService, UserDTO selectedUserDTO, Stage accountUserStage){
         this.prietenieService = prietenieService;
         this.utilizatorService = utilizatorService;
         this.friendshipRequestService = friendshipRequestService;
         this.prietenieService.addObserver(this);
         this.selectedUserDTO = selectedUserDTO;
+        this.accountUserStage = accountUserStage;
         if(selectedUserDTO != null){
             labelUser.setText("Hello, " + selectedUserDTO.getFirstName()+" "+selectedUserDTO.getLastName());
            initModel();
@@ -85,6 +89,10 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
 
             tableViewAccountUser.getSelectionModel().clearSelection();
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nothing selected");
+            alert.show();
+        }
 
     }
     public void addFriendshipRequest() throws IOException {
@@ -97,6 +105,11 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             addFriendshipRequestStage.setTitle("Send friendship request");
             addFriendshipRequestStage.setResizable(false);
             addFriendshipRequestStage.initModality(Modality.APPLICATION_MODAL);
+            addFriendshipRequestStage.setOnCloseRequest(event -> {
+                accountUserStage.show();
+                tableViewAccountUser.getSelectionModel().clearSelection();
+            } );
+
             Scene scene = new Scene(root);
             addFriendshipRequestStage.setScene(scene);
 
@@ -105,6 +118,7 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             addFriendshipViewController.setUtilizatorService(utilizatorService,selectedUserDTO);
             addFriendshipViewController.setFriendshipRequestService(friendshipRequestService);
 
+            accountUserStage.hide();
             addFriendshipRequestStage.show();
 
         }catch (IOException e){
@@ -149,11 +163,16 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             Stage friendshipRequestViewStage = new Stage();
             friendshipRequestViewStage.setScene(new Scene(root));
             friendshipRequestViewStage.setTitle("Friendship Requests");
+            friendshipRequestViewStage.setOnCloseRequest(event -> {
+                accountUserStage.show();
+                tableViewAccountUser.getSelectionModel().clearSelection();
+            } );
 
             FriendshipRequestsViewController friendshipRequestsViewController = loader.getController();
             friendshipRequestsViewController.setFriendshipRequestService(friendshipRequestService,selectedUserDTO);
             friendshipRequestsViewController.setPrietenieService(prietenieService);
 
+            accountUserStage.hide();
             friendshipRequestViewStage.show();
 
         }catch (IOException e){

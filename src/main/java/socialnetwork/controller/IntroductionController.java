@@ -36,11 +36,17 @@ public class IntroductionController {
     @FXML
     TableColumn<UserDTO, String> tableColumnLastName;
 
+    Stage introductionstage;
+
     @FXML
     public void initialize(){
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("firstName"));
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("lastName"));
         tableViewUserDTO.setItems(modelUserDTO);
+    }
+
+    public void setIntroductionstage(Stage introductionstage) {
+        this.introductionstage = introductionstage;
     }
 
     public void setUtilizatorService(UtilizatorService utilizatorService) {
@@ -76,13 +82,18 @@ public class IntroductionController {
             Stage accountUserStage = new Stage();
             accountUserStage.setTitle("User account");
             accountUserStage.initModality(Modality.APPLICATION_MODAL);
+            accountUserStage.setOnCloseRequest(event -> {
+                introductionstage.show();
+                tableViewUserDTO.getSelectionModel().clearSelection();
+            } );
 
             Scene scene = new Scene(root);
             accountUserStage.setScene(scene);
             AccountUserController accountUserController = loader.getController();
 
-            accountUserController.setAttributes(prietenieService,utilizatorService,friendshipRequestService,selectedUserDTO);
+            accountUserController.setAttributes(prietenieService,utilizatorService,friendshipRequestService,selectedUserDTO,accountUserStage);
 
+            introductionstage.hide();
             accountUserStage.show();
 
             tableViewUserDTO.getSelectionModel().clearSelection();

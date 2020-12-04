@@ -5,11 +5,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="799.0" style="-fx-background-color:  linear-gradient(#E7C99A,#E2A364)" stylesheets="@../css/friendshipRequestView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controller.FriendshipRequestsViewController">
    <children>
+      <Button fx:id="buttonUnsend" layoutX="689.0" layoutY="312.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="86.0" text="Unsend" onMouseClicked="#deleteFriendshipRequest"/>
+      <Button fx:id="buttonReject" layoutX="689.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#rejectedRequest" prefHeight="46.0" prefWidth="86.0" text="Reject" />
       <TableView fx:id="tableViewFriendshipRequests" layoutX="32.0" layoutY="52.0" prefHeight="306.0" prefWidth="623.0">
         <columns>
           <TableColumn prefWidth="480.0" text="Friendship Requests">
                <columns>
-                <TableColumn prefWidth="200.0" text="From">
+                <TableColumn fx:id="tableColumnFromTo" prefWidth="200.0" text="From">
                      <columns>
                         <TableColumn fx:id="tableColumnFirstName" prefWidth="100.0" text="First Name" />
                         <TableColumn fx:id="tableColumnLastName" prefWidth="100.0" text="Last Name" />
@@ -23,10 +25,11 @@
         </columns>
       </TableView>
       <Button fx:id="buttonAccept" layoutX="689.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#acceptedRequest" prefHeight="46.0" prefWidth="86.0" text="Accept" />
-      <Button fx:id="buttonReject" layoutX="689.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#rejectedRequest" prefHeight="46.0" prefWidth="86.0" text="Reject" />
       <RadioButton fx:id="radioButtonPending" layoutX="689.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#handleFilterPending" text="Pending" />
       <RadioButton fx:id="radioButtonApproved" layoutX="689.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#handleFilterApproved" text="Approved" />
       <RadioButton fx:id="radioButtonRejected" layoutX="689.0" layoutY="142.0" mnemonicParsing="false" onMouseClicked="#handleFilterRejected" text="Rejected" />
       <Label fx:id="labelUser" layoutX="32.0" layoutY="358.0" prefHeight="25.0" prefWidth="623.0" text="Label" />
+      <Button fx:id="buttonFrom" layoutX="32.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleHideFrom" text="From" />
+      <Button fx:id="buttonTo" layoutX="73.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#handleHideTo" prefHeight="23.0" prefWidth="41.0" text="To" />
    </children>
 </AnchorPane>
