@@ -57,6 +57,14 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
         tableViewAccountUser.setItems(model);
     }
 
+    /**
+     * setting the attributes
+     * @param prietenieService
+     * @param utilizatorService
+     * @param friendshipRequestService
+     * @param selectedUserDTO
+     * @param accountUserStage
+     */
     void setAttributes(PrietenieService prietenieService, UtilizatorService utilizatorService,
                        FriendshipRequestService friendshipRequestService, UserDTO selectedUserDTO, Stage accountUserStage){
         this.prietenieService = prietenieService;
