@@ -86,6 +86,7 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
         this.prietenieService = prietenieService;
     }
 
+    @FXML
     public void initialize() {
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstNameFrom"));
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastNameFrom"));

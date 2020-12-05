@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import socialnetwork.domain.Prietenie;
 import socialnetwork.domain.UserDTO;
 import socialnetwork.service.FriendshipRequestService;
+import socialnetwork.service.MessageService;
 import socialnetwork.service.PrietenieService;
 import socialnetwork.service.UtilizatorService;
 
@@ -25,6 +26,7 @@ public class IntroductionController {
     UtilizatorService utilizatorService;
     PrietenieService prietenieService;
     FriendshipRequestService friendshipRequestService;
+    MessageService messageService;
     ObservableList<UserDTO> modelUserDTO = FXCollections.observableArrayList();
 
     @FXML
@@ -91,7 +93,7 @@ public class IntroductionController {
             accountUserStage.setScene(scene);
             AccountUserController accountUserController = loader.getController();
 
-            accountUserController.setAttributes(prietenieService,utilizatorService,friendshipRequestService,selectedUserDTO,accountUserStage);
+            accountUserController.setAttributes(prietenieService,utilizatorService,friendshipRequestService,messageService,selectedUserDTO,accountUserStage);
 
             introductionstage.hide();
             accountUserStage.show();
@@ -104,4 +106,7 @@ public class IntroductionController {
     }
 
 
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
 }

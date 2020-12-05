@@ -46,6 +46,7 @@ public class AddFriendshipViewController {
     @FXML
     Label labelUser;
 
+    @FXML
     public void initialize(){
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName")); //camp din UserDTO
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
