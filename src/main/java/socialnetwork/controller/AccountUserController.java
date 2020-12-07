@@ -19,6 +19,7 @@ import socialnetwork.domain.Tuple;
 import socialnetwork.domain.UserDTO;
 import socialnetwork.domain.Utilizator;
 import socialnetwork.service.FriendshipRequestService;
+import socialnetwork.service.MessageService;
 import socialnetwork.service.PrietenieService;
 import socialnetwork.service.UtilizatorService;
 import socialnetwork.utils.events.FriendshipChangeEvent;
@@ -33,6 +34,7 @@ import java.util.List;
 public class AccountUserController implements Observer<FriendshipChangeEvent> {
     PrietenieService prietenieService;
     UserDTO selectedUserDTO;
+    MessageService messageService;
     UtilizatorService utilizatorService;
     FriendshipRequestService friendshipRequestService;
     ObservableList<UserDTO> model = FXCollections.observableArrayList();
@@ -66,10 +68,11 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
      * @param accountUserStage
      */
     void setAttributes(PrietenieService prietenieService, UtilizatorService utilizatorService,
-                       FriendshipRequestService friendshipRequestService, UserDTO selectedUserDTO, Stage accountUserStage){
+                       FriendshipRequestService friendshipRequestService,MessageService messageService, UserDTO selectedUserDTO, Stage accountUserStage){
         this.prietenieService = prietenieService;
         this.utilizatorService = utilizatorService;
         this.friendshipRequestService = friendshipRequestService;
+        this.messageService = messageService;
         this.prietenieService.addObserver(this);
         this.selectedUserDTO = selectedUserDTO;
         this.accountUserStage = accountUserStage;
@@ -126,6 +129,9 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             addFriendshipViewController.setUtilizatorService(utilizatorService,selectedUserDTO);
             addFriendshipViewController.setFriendshipRequestService(friendshipRequestService);
 
+            addFriendshipViewController.setStage(addFriendshipRequestStage);
+            addFriendshipViewController.setStageBack(accountUserStage);
+
             accountUserStage.hide();
             addFriendshipRequestStage.show();
 
@@ -180,6 +186,9 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             friendshipRequestsViewController.setFriendshipRequestService(friendshipRequestService,selectedUserDTO);
             friendshipRequestsViewController.setPrietenieService(prietenieService);
 
+            friendshipRequestsViewController.setStageBack(accountUserStage);
+            friendshipRequestsViewController.setStage(friendshipRequestViewStage);
+
             accountUserStage.hide();
             friendshipRequestViewStage.show();
 
@@ -187,5 +196,41 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             e.printStackTrace();
         }
 
+    }
+
+    public void openMessages() {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/views/messageView.fxml"));
+
+            AnchorPane root = loader.load();
+
+            Stage messagesViewStage = new Stage();
+            messagesViewStage.setScene(new Scene(root));
+            messagesViewStage.setTitle("Messages");
+            messagesViewStage.setOnCloseRequest(event -> {
+                accountUserStage.show();
+                tableViewAccountUser.getSelectionModel().clearSelection();
+            } );
+
+            MessageController messageController = loader.getController();
+
+            messageController.setPrietenieService(prietenieService);
+            messageController.setSelectedUserDTO(selectedUserDTO);
+            messageController.setUtilizatorService(utilizatorService);
+            messageController.setMessageService(messageService);
+            messageController.setStageBack(accountUserStage);
+            messageController.setStage(messagesViewStage);
+
+            accountUserStage.hide();
+            messagesViewStage.show();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void exitFromAccountUser() {
+        System.exit(0);
     }
 }

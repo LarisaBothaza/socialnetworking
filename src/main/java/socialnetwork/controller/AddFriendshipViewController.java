@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import socialnetwork.domain.Prietenie;
 import socialnetwork.domain.UserDTO;
 import socialnetwork.domain.Utilizator;
@@ -46,6 +48,7 @@ public class AddFriendshipViewController {
     @FXML
     Label labelUser;
 
+    @FXML
     public void initialize(){
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName")); //camp din UserDTO
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -143,5 +146,25 @@ public class AddFriendshipViewController {
                         user.getLastName().startsWith(textFieldSearch.getText()))
                         .collect(Collectors.toList()));
 
+    }
+
+    public void exitFromAddFriendship() {
+        System.exit(0);
+    }
+
+    Stage accountUserStage;
+    Stage addFriendshipRequestStage;
+
+    public void setStageBack(Stage accountUserStage) {
+        this.accountUserStage = accountUserStage;
+    }
+
+    public void setStage(Stage addFriendshipRequestStage) {
+        this.addFriendshipRequestStage = addFriendshipRequestStage;
+    }
+
+    public void backFromAddFriendship() {
+        accountUserStage.show();
+        addFriendshipRequestStage.hide();
     }
 }

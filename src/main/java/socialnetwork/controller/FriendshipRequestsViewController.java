@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import socialnetwork.domain.Prietenie;
 import socialnetwork.domain.Tuple;
 import socialnetwork.domain.UserDTO;
@@ -86,6 +87,7 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
         this.prietenieService = prietenieService;
     }
 
+    @FXML
     public void initialize() {
         tableColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstNameFrom"));
         tableColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastNameFrom"));
@@ -215,5 +217,25 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
             Alert alert = new Alert(Alert.AlertType.ERROR, "Nothing selected");
             alert.show();
         }
+    }
+
+    Stage accountUserStage;
+    Stage friendshipRequestViewStage;
+
+    public void setStageBack(Stage accountUserStage) {
+        this.accountUserStage = accountUserStage;
+    }
+
+    public void setStage(Stage friendshipRequestViewStage) {
+        this.friendshipRequestViewStage = friendshipRequestViewStage;
+    }
+
+    public void exitFromFriendshipRequests() {
+        System.exit(0);
+    }
+
+    public void backFromFriendshipRequests() {
+        accountUserStage.show();
+        friendshipRequestViewStage.hide();
     }
 }

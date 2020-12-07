@@ -3,6 +3,7 @@ package socialnetwork.domain.messages;
 import jdk.jfr.events.CertificateId;
 import socialnetwork.domain.Entity;
 import socialnetwork.domain.Utilizator;
+import socialnetwork.utils.Constants;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -70,6 +71,18 @@ public class Message extends Entity<Long> {
 
     public LocalDateTime getData() {
         return data;
+    }
+
+    public String getDateString(){
+        return data.format(Constants.DATE_TIME_FORMATTER);
+    }
+
+    public String getFirstNameFrom(){
+        return from.getFirstName();
+    }
+
+    public  String getLastNameFrom(){
+        return from.getLastName();
     }
 
     public void setData(LocalDateTime data) {
