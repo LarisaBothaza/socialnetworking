@@ -146,6 +146,8 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
 
     public void handleFilterPending() {
         if(radioButtonPending.isSelected()){
+            radioButtonRejected.setSelected(false);
+            radioButtonApproved.setSelected(false);
             List<FriendshipRequest> friendshipRequestList = friendshipRequestService.getAllRequest(selectedUserDTO.getId());
             model.setAll(
                     friendshipRequestList.stream()
@@ -159,6 +161,8 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
 
     public void handleFilterApproved() {
         if(radioButtonApproved.isSelected()){
+            radioButtonRejected.setSelected(false);
+            radioButtonPending.setSelected(false);
             List<FriendshipRequest> friendshipRequestList = friendshipRequestService.getAllRequest(selectedUserDTO.getId());
             model.setAll(
                     friendshipRequestList.stream()
@@ -172,6 +176,8 @@ public class FriendshipRequestsViewController implements Observer<FriendshipRequ
 
     public void handleFilterRejected() {
         if(radioButtonRejected.isSelected()){
+            radioButtonPending.setSelected(false);
+            radioButtonApproved.setSelected(false);
             List<FriendshipRequest> friendshipRequestList = friendshipRequestService.getAllRequest(selectedUserDTO.getId());
             model.setAll(
                     friendshipRequestList.stream()

@@ -227,6 +227,8 @@ public class MessageController {
                         textMessage, LocalDateTime.now());
                 messageService.addMessage(message);
                 textFieldComposeMessage.clear();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Successful send");
+                alert.show();
                 initModel();
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Please select users");

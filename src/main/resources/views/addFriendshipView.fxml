@@ -21,7 +21,6 @@
       <Label fx:id="labelMessage" layoutX="300.0" layoutY="150.0" text="Message" />
       <Button fx:id="buttonSend" layoutX="389.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#sendFriendshipRequest" prefHeight="50.0" prefWidth="149.0" text="Send friendship request" />
       <Label fx:id="labelUser" layoutX="62.0" layoutY="359.0" prefHeight="36.0" prefWidth="204.0" text="Label" />
-      <Button fx:id="buttonExitFromAddFriendship" layoutX="545.0" layoutY="16.0" mnemonicParsing="false" text="Exit" onMouseClicked="#exitFromAddFriendship"/>
-      <Button fx:id="buttonBackFromAddFriendship" layoutX="498.0" layoutY="16.0" mnemonicParsing="false" text="Back" onMouseClicked="#backFromAddFriendship"/>
+      <Button fx:id="buttonBackFromAddFriendship" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#backFromAddFriendship" text="Back" />
    </children>
 </AnchorPane>

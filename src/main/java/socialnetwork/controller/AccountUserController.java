@@ -51,6 +51,11 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
     @FXML Label labelUser;
 
     Stage accountUserStage;
+    Stage introductionStage;
+
+    public void setIntroductionStage(Stage introductionStage) {
+        this.introductionStage = introductionStage;
+    }
 
     @FXML
     public void initialize(){
@@ -117,8 +122,7 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             addFriendshipRequestStage.setResizable(false);
             addFriendshipRequestStage.initModality(Modality.APPLICATION_MODAL);
             addFriendshipRequestStage.setOnCloseRequest(event -> {
-                accountUserStage.show();
-                tableViewAccountUser.getSelectionModel().clearSelection();
+                introductionStage.show();
             } );
 
             Scene scene = new Scene(root);
@@ -178,8 +182,7 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             friendshipRequestViewStage.setScene(new Scene(root));
             friendshipRequestViewStage.setTitle("Friendship Requests");
             friendshipRequestViewStage.setOnCloseRequest(event -> {
-                accountUserStage.show();
-                tableViewAccountUser.getSelectionModel().clearSelection();
+                introductionStage.show();
             } );
 
             FriendshipRequestsViewController friendshipRequestsViewController = loader.getController();
@@ -209,8 +212,7 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             messagesViewStage.setScene(new Scene(root));
             messagesViewStage.setTitle("Messages");
             messagesViewStage.setOnCloseRequest(event -> {
-                accountUserStage.show();
-                tableViewAccountUser.getSelectionModel().clearSelection();
+                introductionStage.show();
             } );
 
             MessageController messageController = loader.getController();
@@ -230,7 +232,4 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
         }
     }
 
-    public void exitFromAccountUser() {
-        System.exit(0);
-    }
 }

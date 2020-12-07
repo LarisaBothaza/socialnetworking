@@ -155,6 +155,7 @@ public class AddFriendshipViewController {
     Stage accountUserStage;
     Stage addFriendshipRequestStage;
 
+
     public void setStageBack(Stage accountUserStage) {
         this.accountUserStage = accountUserStage;
     }

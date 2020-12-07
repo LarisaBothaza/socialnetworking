@@ -86,7 +86,6 @@ public class IntroductionController {
             accountUserStage.initModality(Modality.APPLICATION_MODAL);
             accountUserStage.setOnCloseRequest(event -> {
                 introductionstage.show();
-                tableViewUserDTO.getSelectionModel().clearSelection();
             } );
 
             Scene scene = new Scene(root);
@@ -94,11 +93,12 @@ public class IntroductionController {
             AccountUserController accountUserController = loader.getController();
 
             accountUserController.setAttributes(prietenieService,utilizatorService,friendshipRequestService,messageService,selectedUserDTO,accountUserStage);
-
+            accountUserController.setIntroductionStage(introductionstage);
             introductionstage.hide();
+            tableViewUserDTO.getSelectionModel().clearSelection();
             accountUserStage.show();
 
-            tableViewUserDTO.getSelectionModel().clearSelection();
+
         }
         catch (IOException e){
             e.printStackTrace();
