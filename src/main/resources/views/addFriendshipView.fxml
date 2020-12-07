@@ -15,11 +15,13 @@
             </TableColumn>
         </columns>
       </TableView>
-      <TextField fx:id="textFieldSearch" layoutX="389.0" layoutY="42.0" onKeyTyped="#handleFilter" />
-      <Label fx:id="labelSearch" layoutX="300.0" layoutY="46.0" text="Search" />
-      <TextField fx:id="textFieldMessage" layoutX="389.0" layoutY="93.0" prefHeight="50.0" prefWidth="149.0" />
-      <Label fx:id="labelMessage" layoutX="300.0" layoutY="101.0" text="Messaage" />
-      <Button fx:id="buttonSend" layoutX="389.0" layoutY="176.0" mnemonicParsing="false" onMouseClicked="#sendFriendshipRequest" prefHeight="50.0" prefWidth="149.0" text="Send friendship request" />
+      <TextField fx:id="textFieldSearch" layoutX="389.0" layoutY="86.0" onKeyTyped="#handleFilter" promptText="Search name" />
+      <Label fx:id="labelSearch" layoutX="306.0" layoutY="86.0" text="Search" />
+      <TextField fx:id="textFieldMessage" layoutX="389.0" layoutY="150.0" prefHeight="50.0" prefWidth="149.0" promptText="Message ..." />
+      <Label fx:id="labelMessage" layoutX="300.0" layoutY="150.0" text="Message" />
+      <Button fx:id="buttonSend" layoutX="389.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#sendFriendshipRequest" prefHeight="50.0" prefWidth="149.0" text="Send friendship request" />
       <Label fx:id="labelUser" layoutX="62.0" layoutY="359.0" prefHeight="36.0" prefWidth="204.0" text="Label" />
+      <Button fx:id="buttonExitFromAddFriendship" layoutX="545.0" layoutY="16.0" mnemonicParsing="false" text="Exit" onMouseClicked="#exitFromAddFriendship"/>
+      <Button fx:id="buttonBackFromAddFriendship" layoutX="498.0" layoutY="16.0" mnemonicParsing="false" text="Back" onMouseClicked="#backFromAddFriendship"/>
    </children>
 </AnchorPane>

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import socialnetwork.domain.Prietenie;
 import socialnetwork.domain.UserDTO;
 import socialnetwork.domain.Utilizator;
@@ -20,11 +21,15 @@ import socialnetwork.utils.observer.Observable;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static jdk.internal.net.http.common.Utils.close;
 
 public class MessageController {
     ObservableList<UserDTO> modelUnselected = FXCollections.observableArrayList();
     ObservableList<UserDTO> modelSelected = FXCollections.observableArrayList();
+    ObservableList<Message> modelInbox = FXCollections.observableArrayList();
 
     UtilizatorService utilizatorService;
     MessageService messageService;
@@ -33,6 +38,12 @@ public class MessageController {
 
     List<UserDTO> listUsersSelected= new ArrayList<>();
     List<UserDTO> listUsersUnselected = new ArrayList<>();
+
+    @FXML
+    Label labelUserCompose;
+
+    @FXML
+    Label labelUserInbox;
 
     @FXML
     TableView<UserDTO> tableViewUnselected;
@@ -56,6 +67,24 @@ public class MessageController {
     TextField textFieldComposeMessage;
 
     @FXML
+    TableView<Message> tableViewInbox;
+
+    @FXML
+    TableColumn<Message, String> tableColumnInboxFirstName;
+
+    @FXML
+    TableColumn<Message, String> tableColumnInboxLastName;
+
+    @FXML
+    TableColumn<Message, String> tableColumnInboxDate;
+
+    @FXML
+    TableColumn<Message, String> tableColumnInboxMessage;
+
+    @FXML
+    TextField textFieldInboxMessage;
+
+    @FXML
     public void initialize(){
 
         tableColumnFirstNameUnselected.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("firstName"));
@@ -64,8 +93,14 @@ public class MessageController {
         tableColumnFirstNameSelected.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("firstName"));
         tableColumnLastNameSelected.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("lastName"));
 
+        tableColumnInboxFirstName.setCellValueFactory(new PropertyValueFactory<Message, String>("FirstNameFrom"));
+        tableColumnInboxLastName.setCellValueFactory(new PropertyValueFactory<Message, String>("LastNameFrom"));
+        tableColumnInboxDate.setCellValueFactory(new PropertyValueFactory<Message, String>("DateString"));
+        tableColumnInboxMessage.setCellValueFactory(new PropertyValueFactory<Message, String>("Message"));
+
         tableViewUnselected.setItems(modelUnselected);
         tableViewSelected.setItems(modelSelected);
+        tableViewInbox.setItems(modelInbox);
     }
 
     public void setUtilizatorService(UtilizatorService utilizatorService) {
@@ -74,7 +109,9 @@ public class MessageController {
     }
 
     public void setMessageService(MessageService messageService) {
+
         this.messageService = messageService;
+        initModelInbox();
     }
 
     public void setPrietenieService(PrietenieService prietenieService) {
@@ -82,7 +119,12 @@ public class MessageController {
     }
 
     public void setSelectedUserDTO(UserDTO selectedUserDTO) {
+
         this.selectedUserDTO = selectedUserDTO;
+        if(selectedUserDTO != null) {
+            labelUserCompose.setText("Logged in with: " + selectedUserDTO.getFirstName() + " " + selectedUserDTO.getLastName());
+            labelUserInbox.setText("Logged in with: " + selectedUserDTO.getFirstName() + " " + selectedUserDTO.getLastName());
+        }
     }
 
     private void initModel(){
@@ -108,6 +150,19 @@ public class MessageController {
 
         }
     }
+
+    private void initModelInbox(){
+       Iterable<Message> allMessages = messageService.getMessageToUser(selectedUserDTO.getId());
+       List<Message> listMessages = new ArrayList<>();
+       allMessages.forEach(listMessages::add);
+       if(!listMessages.iterator().hasNext()){
+           modelInbox.setAll(listMessages);
+           tableViewInbox.setPlaceholder(new Label("You have no messages"));
+       }else{
+           modelInbox.setAll(listMessages);
+       }
+    }
+
     public void refreshTables(List<UserDTO> listFriends){
         listUsersUnselected.clear();
         listUsersSelected.clear();
@@ -182,5 +237,66 @@ public class MessageController {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a text message");
             alert.show();
         }
+    }
+
+    public void replyMessage() {
+
+        String textMessageReply = textFieldInboxMessage.getText();
+        Message messageSelected = tableViewInbox.getSelectionModel().getSelectedItem();
+
+        if(messageSelected != null){
+            if(!textMessageReply.matches("[ ]*")){
+                Utilizator user = utilizatorService.findOne(selectedUserDTO.getId());
+                Message response = new Message(user, Arrays.asList( messageSelected.getFrom()),textMessageReply, LocalDateTime.now());
+                messageService.addMessage(response);
+                textFieldInboxMessage.clear();
+                tableViewInbox.getSelectionModel().clearSelection();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Successful send");
+                alert.show();
+
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a text message");
+                alert.show();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nothing selected");
+            alert.show();
+        }
+
+
+    }
+
+    public void exitFromInbox() {
+        System.exit(0);
+    }
+
+    public void exitFromCompose() {
+        System.exit(0);
+
+    }
+
+
+
+    Stage accountUserStage;
+    Stage messageStage;
+
+    public void setStage(Stage messageStage) {
+        this.messageStage = messageStage;
+
+    }
+
+    public void setStageBack(Stage accountUserStage) {
+
+        this.accountUserStage = accountUserStage;
+    }
+
+    public void backFromCompose() {
+        accountUserStage.show();
+        messageStage.hide();
+    }
+
+    public void backFromInbox( ){
+        accountUserStage.show();
+        messageStage.hide();
     }
 }

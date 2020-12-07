@@ -4,86 +4,128 @@
     -fx-text-fill: #C04F27;
 }
 
-#labelUser{
+#labelUserCompose{
+    -fx-font-size: 10px;
+    -fx-text-fill: #C04F27;
+    -fx-font-weight: bold;
+}
+#labelUserInbox{
     -fx-font-size: 10px;
     -fx-text-fill: #C04F27;
     -fx-font-weight: bold;
 }
 
-.button {
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color:#E7C99A;
+    -fx-border-color: #E7C99A;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-insets: 0;
+    -fx-pref-height: 45px;
+
+}
+
+.tab-pane:hover{
+    -fx-background-color: linear-gradient(#f1b16b, #e59c5a);
+}
+
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #C04F27;
+    -fx-font-weight: bold;
     -fx-font-size: 16px;
-    -fx-font-weight: bold;
+}
+
+
+
+#buttonSelect{
+    -fx-font-size: 16px;
     -fx-text-fill: #C04F27;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
-}
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 
-#buttonAccept{
-    -fx-font-size: 12px;
-    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
-#buttonReject{
-    -fx-font-size: 12px;
-    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-#buttonUnsend{
-    -fx-font-size: 12px;
-    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
-    -fx-font-family: "Arial Narrow";
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
-}
-
-.radio-button{
-    -fx-font-size: 12px;
+#buttonUnselect{
+    -fx-font-size: 16px;
     -fx-text-fill: #C04F27;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+
+}
+
+#buttonComposeSend {
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+}
+
+#buttonInboxReply {
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
 .button:hover {
     -fx-background-color: linear-gradient(#f1b16b, #e59c5a);
 }
 
-#tableColumnFirstName {
+
+
+#tableColumnLastNameUnselected {
     -fx-font-size: 12px;
     -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
-#tableColumnLastName {
+#tableColumnFirstNameUnselected {
     -fx-font-size: 12px;
     -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
-#tableColumnDate{
+#tableColumnFirstNameSelected{
     -fx-font-size: 12px;
     -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
-
-#tableColumnStatus{
+#tableColumnLastNameSelected{
     -fx-font-size: 12px;
     -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
     -fx-alignment: center;
     -fx-font-weight: bold;
 }
 
-#tableColumnMessage{
+#tableColumnInboxFirstName{
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+#tableColumnInboxLastName{
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+#tableColumnInboxDate{
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+#tableColumnInboxMessage{
     -fx-font-size: 12px;
     -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
     -fx-alignment: center;

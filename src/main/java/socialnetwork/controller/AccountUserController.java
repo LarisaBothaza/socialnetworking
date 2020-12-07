@@ -129,6 +129,9 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             addFriendshipViewController.setUtilizatorService(utilizatorService,selectedUserDTO);
             addFriendshipViewController.setFriendshipRequestService(friendshipRequestService);
 
+            addFriendshipViewController.setStage(addFriendshipRequestStage);
+            addFriendshipViewController.setStageBack(accountUserStage);
+
             accountUserStage.hide();
             addFriendshipRequestStage.show();
 
@@ -183,6 +186,9 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             friendshipRequestsViewController.setFriendshipRequestService(friendshipRequestService,selectedUserDTO);
             friendshipRequestsViewController.setPrietenieService(prietenieService);
 
+            friendshipRequestsViewController.setStageBack(accountUserStage);
+            friendshipRequestsViewController.setStage(friendshipRequestViewStage);
+
             accountUserStage.hide();
             friendshipRequestViewStage.show();
 
@@ -213,6 +219,8 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
             messageController.setSelectedUserDTO(selectedUserDTO);
             messageController.setUtilizatorService(utilizatorService);
             messageController.setMessageService(messageService);
+            messageController.setStageBack(accountUserStage);
+            messageController.setStage(messagesViewStage);
 
             accountUserStage.hide();
             messagesViewStage.show();
@@ -220,5 +228,9 @@ public class AccountUserController implements Observer<FriendshipChangeEvent> {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void exitFromAccountUser() {
+        System.exit(0);
     }
 }

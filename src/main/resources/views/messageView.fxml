@@ -3,25 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="488.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controller.MessageController">
+<AnchorPane prefHeight="488.0" prefWidth="917.0" style="-fx-background-color:  linear-gradient(#E7C99A,#E2A364)" stylesheets="@../css/messageView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controller.MessageController">
    <children>
       <TabPane layoutX="6.0" layoutY="7.0" prefHeight="473.0" prefWidth="902.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Compose">
+          <Tab fx:id="tabCompose" text="Compose">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="216.0" prefWidth="390.0">
                      <children>
-                        <TableView fx:id="tableViewUnselected" layoutX="59.0" layoutY="32.0" prefHeight="239.0" prefWidth="189.0">
+                        <TableView fx:id="tableViewUnselected" layoutX="32.0" layoutY="76.0" prefHeight="269.0" prefWidth="214.0">
                           <columns>
-                              <TableColumn prefWidth="75.0" text="Your friends">
+                              <TableColumn prefWidth="213.0" text="Your friends">
                                  <columns>
-                                  <TableColumn fx:id="tableColumnFirstNameUnselected" prefWidth="95.0" text="First Name" />
-                                  <TableColumn fx:id="tableColumnLastNameUnselected" prefWidth="93.0" text="Last Name" />
+                                  <TableColumn fx:id="tableColumnFirstNameUnselected" prefWidth="114.0" text="First Name" />
+                                  <TableColumn fx:id="tableColumnLastNameUnselected" prefWidth="99.0" text="Last Name" />
                                  </columns>
                               </TableColumn>
                           </columns>
                         </TableView>
-                        <TableView fx:id="tableViewSelected" layoutX="360.0" layoutY="30.0" prefHeight="244.0" prefWidth="251.0">
+                        <TableView fx:id="tableViewSelected" layoutX="361.0" layoutY="80.0" prefHeight="271.0" prefWidth="251.0">
                           <columns>
                               <TableColumn prefWidth="75.0" text="Selected friends">
                                  <columns>
@@ -31,18 +31,21 @@
                               </TableColumn>
                           </columns>
                         </TableView>
-                        <Button fx:id="buttonSelect" layoutX="270.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="&gt;&gt;" onMouseClicked="#selectedUserForMessage" />
-                        <Button fx:id="buttonUnselect" layoutX="270.0" layoutY="115.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="&lt;&lt;" onMouseClicked="#unselectedUserForMessage" />
-                        <TextField fx:id="textFieldComposeMessage" layoutX="658.0" layoutY="90.0" prefHeight="100.0" prefWidth="205.0" promptText="Message ..." />
-                        <Button fx:id="buttonComposeSend" layoutX="663.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text="Send" onMouseClicked="#sendMessages"/>
+                        <Button fx:id="buttonSelect" layoutX="270.0" layoutY="124.0" mnemonicParsing="false" onMouseClicked="#selectedUserForMessage" prefHeight="25.0" prefWidth="65.0" text="&gt;&gt;" />
+                        <Button fx:id="buttonUnselect" layoutX="270.0" layoutY="174.0" mnemonicParsing="false" onMouseClicked="#unselectedUserForMessage" prefHeight="25.0" prefWidth="65.0" text="&lt;&lt;" />
+                        <TextField fx:id="textFieldComposeMessage" layoutX="663.0" layoutY="140.0" prefHeight="116.0" prefWidth="205.0" promptText="Message ..." />
+                        <Button fx:id="buttonComposeSend" layoutX="663.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#sendMessages" prefHeight="25.0" prefWidth="206.0" text="Send" />
+                        <Label fx:id="labelUserCompose" layoutX="41.0" layoutY="399.0" text="Label" />
+                        <Button fx:id="buttonExitCompose" layoutX="852.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#exitFromCompose" text="Exit" />
+                        <Button fx:id="buttonBackCompose" layoutX="805.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#backFromCompose" text="Back" />
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Inbox">
+          <Tab fx:id="tabInbox" text="Inbox">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="891.0">
                      <children>
-                        <TableView fx:id="tableViewInbox" layoutX="32.0" layoutY="23.0" prefHeight="347.0" prefWidth="505.0">
+                        <TableView fx:id="tableViewInbox" layoutX="10.0" layoutY="23.0" prefHeight="371.0" prefWidth="588.0">
                           <columns>
                             <TableColumn prefWidth="152.0" text="From">
                                  <columns>
@@ -50,12 +53,15 @@
                                     <TableColumn fx:id="tableColumnInboxLastName" prefWidth="75.0" text="Last Name" />
                                  </columns>
                               </TableColumn>
-                            <TableColumn fx:id="tableColumnInboxDate" prefWidth="94.0" text="Date" />
-                              <TableColumn fx:id="tableColumnInboxMessage" prefWidth="260.0" text="Message" />
+                            <TableColumn fx:id="tableColumnInboxDate" minWidth="0.0" prefWidth="137.0" text="Date" />
+                              <TableColumn fx:id="tableColumnInboxMessage" prefWidth="299.0" text="Message" />
                           </columns>
                         </TableView>
-                        <TextField fx:id="textFieldInboxMessage" layoutX="582.0" layoutY="59.0" prefHeight="88.0" prefWidth="289.0" promptText="Message ..." />
-                        <Button fx:id="buttonInboxReply" layoutX="645.0" layoutY="174.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="148.0" text="Reply" />
+                        <TextField fx:id="textFieldInboxMessage" layoutX="603.0" layoutY="88.0" prefHeight="123.0" prefWidth="279.0" promptText="Message ..." />
+                        <Button fx:id="buttonInboxReply" layoutX="810.0" layoutY="225.0" mnemonicParsing="false" onMouseClicked="#replyMessage" prefHeight="45.0" prefWidth="72.0" text="Reply" />
+                        <Label fx:id="labelUserInbox" layoutX="14.0" layoutY="413.0" text="Label" />
+                        <Button fx:id="buttonExitInbox" layoutX="853.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#exitFromInbox" text="Exit" />
+                        <Button fx:id="buttonBackInbox" layoutX="805.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#backFromInbox" text="Back" />
                      </children>
                   </AnchorPane>
             </content>
