@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import socialnetwork.domain.Prietenie;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static jdk.internal.net.http.common.Utils.close;
 
@@ -83,6 +85,18 @@ public class MessageController {
 
     @FXML
     TextField textFieldInboxMessage;
+
+    @FXML
+    TextField textFieldReplyFirstName;
+
+    @FXML
+    TextField textFieldReplyLastName;
+
+    @FXML
+    TextField textFieldReplyTextMessage;
+
+    @FXML
+    TextField textFieldFilterInbox;
 
     @FXML
     public void initialize(){
@@ -149,6 +163,7 @@ public class MessageController {
             refreshTables(listFriends);
 
         }
+        tableViewSelected.setPlaceholder(new Label("You have no selected friends"));
     }
 
     private void initModelInbox(){
@@ -168,6 +183,7 @@ public class MessageController {
         listUsersSelected.clear();
 
         listUsersUnselected.addAll(listFriends);
+        tableViewSelected.setPlaceholder(new Label("You have no selected friends"));
         modelSelected.setAll(listUsersSelected);
     }
 
@@ -206,7 +222,7 @@ public class MessageController {
             modelSelected.setAll(listUsersSelected);
             tableViewSelected.setItems(modelSelected);
         }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Notihg selected");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Nothing selected");
             alert.show();
             tableViewUnselected.getSelectionModel().clearSelection();
         }
@@ -216,30 +232,33 @@ public class MessageController {
         String textMessage = textFieldComposeMessage.getText();
 
 
-        if(!textMessage.matches("[ ]*")){
-            if(listUsersSelected.size()!=0){
-                List<Utilizator> listoTo = new ArrayList<>();
-                listUsersSelected.forEach(user->{
-                    listoTo.add(utilizatorService.findOne(user.getId()));
-                });
+            if(listUsersSelected.size()!=0) {
+                if (!textMessage.matches("[ ]*")) {
+                    List<Utilizator> listoTo = new ArrayList<>();
+                    listUsersSelected.forEach(user -> {
+                        listoTo.add(utilizatorService.findOne(user.getId()));
+                    });
 
-                Message message = new Message(utilizatorService.findOne(selectedUserDTO.getId()), listoTo,
-                        textMessage, LocalDateTime.now());
-                messageService.addMessage(message);
-                textFieldComposeMessage.clear();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Successful send");
-                alert.show();
-                initModel();
-            }else{
+                    Message message = new Message(utilizatorService.findOne(selectedUserDTO.getId()), listoTo,
+                            textMessage, LocalDateTime.now());
+                    messageService.addMessage(message);
+                    textFieldComposeMessage.clear();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Successful send");
+                    alert.show();
+                    initModel();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a text message");
+                    alert.show();
+                }
+            }
+                else{
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Please select users");
                 alert.show();
             }
 
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please insert a text message");
-            alert.show();
-        }
+
     }
+
 
     public void replyMessage() {
 
@@ -253,6 +272,9 @@ public class MessageController {
                 messageService.addMessage(response);
                 textFieldInboxMessage.clear();
                 tableViewInbox.getSelectionModel().clearSelection();
+                textFieldReplyFirstName.setText("");
+                textFieldReplyLastName.setText("");
+                textFieldReplyTextMessage.setText("");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Successful send");
                 alert.show();
 
@@ -300,5 +322,31 @@ public class MessageController {
     public void backFromInbox( ){
         accountUserStage.show();
         messageStage.hide();
+    }
+
+    public void setTextField() {
+        Message messageSelected = tableViewInbox.getSelectionModel().getSelectedItem();
+
+        textFieldReplyFirstName.setText(messageSelected.getFirstNameFrom());
+        textFieldReplyLastName.setText(messageSelected.getLastNameFrom());
+        textFieldReplyTextMessage.setText(messageSelected.getMessage());
+    }
+
+    public void handleFilter() {
+        Iterable<Message> allMessages = messageService.getMessageToUser(selectedUserDTO.getId());
+        List<Message> listMessages = new ArrayList<>();
+        allMessages.forEach(listMessages::add);
+
+        modelInbox.setAll(
+                listMessages.stream()
+                .filter(msg->msg.getFirstNameFrom().startsWith(textFieldFilterInbox.getText()) ||
+                        msg.getLastNameFrom().startsWith(textFieldFilterInbox.getText()))
+                        .collect(Collectors.toList()));
+
+    }
+
+    public void clearFilter() {
+        textFieldFilterInbox.setText("");
+        initModelInbox();
     }
 }

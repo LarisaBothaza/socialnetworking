@@ -1,5 +1,5 @@
 .label {
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #C04F27;
 }
@@ -53,6 +53,15 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 
+}
+
+#buttonClear{
+    -fx-font-size: 12px;
+    -fx-text-fill: linear-gradient(#E6AB4E, #C04F27);
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#E7C99A, #E2A364);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
 #buttonComposeSend {
